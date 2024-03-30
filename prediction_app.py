@@ -4,6 +4,10 @@ import joblib,os
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
+import numpy as np
+from pydantic import BaseModel
+
+
 
 
 
@@ -21,12 +25,36 @@ phish_model = open('phishing.pkl','rb')
 phish_model_ls = joblib.load(phish_model)
 
 
+
+tfidf = joblib.load(open('vectorizer.pkl', 'rb'))
+spam = joblib.load(open('model.pkl', 'rb'))
+
+
+# 1. preprocess
+# 2. vectorize
+# 3. display
+# 4. predict
+
+@app.get('/spam/', response_class=HTMLResponse)
+async def spam(request:Request):
+	return templates.TemplateResponse(
+		request=request, name='spam.html'
+	)
+
+@app.get('/spam/predict/{feature}')
+async def spam_predict(request:Request, features):
+	return templates.TemplateRessponse(
+		request=request, name='res.html', context = {}
+	)
+
 @app.get('/', response_class=HTMLResponse)
 async def index(request:Request):
 	return templates.TemplateResponse(
 		request=request, name='index.html'
 
 	)
+
+
 
 # ML Aspect
 @app.get('/predict/{feature}')
@@ -51,4 +79,4 @@ async def predict(request:Request, features):
 
 	)
 if __name__ == '__main__':
-	uvicorn.run(app,host="127.0.0.1",port=8000)
+	uvicorn.run(app,host="127.0.0.1",port=33)

@@ -13,10 +13,10 @@
 </head>
 <body class="bg-gray-200">
     <div class="container mx-auto p-4">
-        <h2 class="text-2xl font-bold text-center my-4">Phishing Site Prediction</h2>
-        <form action="http://127.0.0.1:8000/predict/{feature}" method="get" class="flex flex-col items-center">
+        <h2 class="text-2xl font-bold text-center my-4">Spam Detection</h2>
+        <form action="http://127.0.0.1:8000/spam/predict/{feature}" method="get" class="flex flex-col items-center">
             <label for="features" class="mb-2">Enter URL:</label>
-            <input type="text" id="features" name="features" class="border-2 border-gray-300 p-2 mb-4 rounded-md w-full max-w-md">
+           <textarea id="features" name="features" rows="4" class="border-2 border-gray-300 p-2 mb-4 rounded-md w-full max-w-md"></textarea>
             <input type="submit" value="Predict" class="bg-blue-500 text-white p-2 rounded-md cursor-pointer hover:bg-blue-600">
         </form>
     </div>
